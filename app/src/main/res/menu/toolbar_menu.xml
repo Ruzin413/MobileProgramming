@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/bluetooth"
+        app:showAsAction="collapseActionView"
+        android:title="search"
+        />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/setting"
+        app:showAsAction="ifRoom"
+        android:title="settings"
+        />
+    <item
+        android:id="@+id/cart"
+        android:icon="@drawable/discord"
+        app:showAsAction="collapseActionView"
+        android:title="cart"
+        />
+</menu>
