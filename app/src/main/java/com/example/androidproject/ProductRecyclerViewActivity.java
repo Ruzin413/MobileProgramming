@@ -5,40 +5,38 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.androidproject.database.DBHandler;
 import com.example.androidproject.movies.MovieContainer;
 import com.example.androidproject.movies.MovieResults;
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 public class ProductRecyclerViewActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ProductAdapter adapter;
     private ArrayList<Product> productlist =new ArrayList<>();
     private MovieContainer movieData;
+    private DBHandler dbHandler;
     private ArrayList<MovieResults> movieReasultlist = new  ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_recycler_view);
         ftoolbar();
+        dbHandler = new DBHandler(this);
         JsonAsyncTask jsonAsyncTask = new JsonAsyncTask();
         jsonAsyncTask.execute();
         final Handler handler = new Handler(Looper.getMainLooper());
@@ -56,7 +54,6 @@ public class ProductRecyclerViewActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(ProductRecyclerViewActivity.this,2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
     }
     private void ftoolbar(){
         toolbar = findViewById(R.id.RVtoolbar);
@@ -117,9 +114,12 @@ public class ProductRecyclerViewActivity extends AppCompatActivity {
                         String jsonObject =  response.body().string();
                         Gson gsonObject = new Gson();
                         movieData = gsonObject.fromJson(jsonObject,MovieContainer.class);
+                        dbHandler.deleteMovieData();
+                        for(int i= 0; i<movieData.getResultlist().size();i++){
+                            dbHandler.addNewMovieData(movieData.getResultlist().get(i).getOriginalTitle(),movieData.getResultlist().get(i).getOverview(),movieData.getResultlist().get(i).getReleaseDate(),movieData.getResultlist().get(i).getPosterPath());
+                        }
                         movieReasultlist.clear();
                         movieReasultlist.addAll(movieData.getResultlist());
-
                     }
                 }
             });

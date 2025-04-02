@@ -21,4 +21,5 @@ public class MovieContainer {
     public void setResultlist(List<MovieResults> resultlist) {
         this.resultlist = resultlist;
     }
+
 }
