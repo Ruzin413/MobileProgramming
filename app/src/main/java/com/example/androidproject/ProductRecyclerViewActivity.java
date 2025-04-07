@@ -1,5 +1,6 @@
 package com.example.androidproject;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,6 +45,8 @@ public class ProductRecyclerViewActivity extends AppCompatActivity {
             @Override
             public void run() {
                 findView();
+                setSharedPref();
+                getName();
             }
         },5000);
     }
@@ -61,6 +64,17 @@ public class ProductRecyclerViewActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Recycle view");
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    private void setSharedPref (){
+        SharedPreferences sharedPreferences = getSharedPreferences("Bca6th",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("name","Rujin");
+        editor.putInt("date",340);
+    }
+    private void getName(){
+        SharedPreferences sharedPreferences = getSharedPreferences("Bca6th",MODE_PRIVATE);
+        String name = sharedPreferences.getString("name","");
+        int data = sharedPreferences.getInt("data",0);
     }
     private void setproductdata(){
         Product p1 = new Product();

@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_signup);
-//        ftoolbar();
+//      ftoolbar();
         findView();
         txtsignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void findView() {
+    private void findView(){
         Username = findViewById(R.id.Username);
         Password = findViewById(R.id.Password);
         loginButton = findViewById(R.id.loginbutton);
